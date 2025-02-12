@@ -1,0 +1,19 @@
+flows:
+  ask_charger_availability:
+    description: Help users enquire the availability of chargers.
+    steps:
+      - collect: charger_id
+      - action: action_check_charger_availability
+  start_greeting:
+    description: Flow for starting the conversation and ask user basic information to before other enquiries
+    name: Conversation start
+    steps:
+      - collect: user_region
+        description: 'only accept hong kong or macau'
+      - collect: user_type   
+        description: 'only accept halo and shell recharge'   
+      - collect: phone_number
+        description: 'hong kong phone number with 8 digits'
+        rejections:
+          - if: not ( slots.phone_number matches "^[4-9]\d{7}$")
+            utter: utter_invalid_phone_number

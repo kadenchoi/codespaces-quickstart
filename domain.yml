@@ -1,0 +1,74 @@
+version: "3.1"
+
+slots:
+  charger_id:
+    type: text
+    mappings:
+      - type: from_llm
+  user_region:
+    type: categorical
+    values:
+      - hk
+      - macau
+    mappings:
+      - type: from_llm
+  user_type:
+    type: categorical
+    values:
+      - halo
+      - shell
+    mappings:
+      - type: from_llm
+  phone_number:
+    type: text
+    mappings:
+      - type: from_llm
+
+responses:
+  utter_greet:
+    - text: "您好！歡迎使用電動汽車充電服務，請問有什麼可以幫您？"
+  utter_goodbye:
+    - text: "感謝使用我們的服務，再見！"
+  utter_charge_location:
+    - text: "附近最近的充電站位於{location}，需要我為您導航嗎？"
+  utter_charging_speed:
+    - text: "我們的快充站可在30分鐘內充至80%電量，具體時間取決於車型和電池狀態。"
+  utter_payment_methods:
+    - text: "我們支持支付寶、微信支付、銀聯卡和會員積分支付。"
+  utter_fault_report:
+    - text: "請描述您遇到的具體問題，我們將立即派技術人員處理。"
+  utter_membership_benefits:
+    - text: "會員可享受充電費9折優惠、優先預約和免費車輛檢測服務。"
+  utter_out_of_scope:
+    - text: "抱歉，我暫時無法回答這個問題，已轉接人工客服。"
+  utter_begin_of_greeeting:
+    - text: "請問有什麼可以幫到你？"
+  utter_invalid_charger_id:
+    - text: "系統沒有這個 Charger ID"
+  utter_ask_charger_id:
+    - text: "請提供您的充電樁編號。"
+  utter_ask_user_region:
+    - text: "請問您所在的區域是？ (香港/澳門)"
+  utter_ask_user_type:
+    - text: "您是 Halo 還是 shell recharge 用戶？"
+  utter_ask_phone_number:
+    - text: "請提供您的手機號碼。"
+  utter_invalid_phone_number:
+    - text: "不是正確電話"
+  utter_can_do_something_else:
+    - text: "有什麼可以幫到你？"
+  utter_free_chitchat_response:
+    - text: "placeholder"
+      metadata:
+        rephrase: True
+        rephrase_prompt: |
+          The following is a conversation with an AI assistant built with Rasa.
+          The assistant can help the user answer EV charging service.
+          The assistant is helpful, creative, clever, and very friendly.
+          The user is making small talk, and the assistant should respond, keeping things light.
+          The language of response should be same as the user's question
+          Context / previous conversation with the user:
+          Suggested AI Response:
+
+actions:
+  - action_check_charger_availability
